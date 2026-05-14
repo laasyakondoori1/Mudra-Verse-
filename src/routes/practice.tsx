@@ -175,6 +175,7 @@ function PracticePage() {
                 confidence={detected?.confidence ?? 0}
                 fps={detection.fps}
                 isPaused={isPaused}
+                bbox={detected?.bbox}
               />
             )}
 

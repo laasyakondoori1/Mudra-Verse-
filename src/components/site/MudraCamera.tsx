@@ -15,6 +15,7 @@ interface MudraCameraProps {
   confidence: number;
   fps: number;
   isPaused: boolean;
+  bbox?: { x: number; y: number; width: number; height: number };
 }
 
 /* Finger tip indices for coloured fingertip dots */
@@ -29,6 +30,7 @@ export function MudraCamera({
   confidence,
   fps,
   isPaused,
+  bbox,
 }: MudraCameraProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -49,43 +51,26 @@ export function MudraCamera({
 
     ctx.clearRect(0, 0, W, H);
 
-    if (!landmarks || landmarks.length === 0) return;
-
-    const toX = (lm: { x: number }) => (1 - lm.x) * W; // mirror
-    const toY = (lm: { y: number }) => lm.y * H;
+    if (!bbox) return;
 
     const goldOk = "rgba(200, 169, 106, 0.90)";   // var(--gold)
     const goldWarn = "rgba(166, 93, 70, 0.85)";    // var(--terracotta)
     const lineColor = isCorrect ? goldOk : goldWarn;
 
-    /* Connections */
-    ctx.lineWidth = W * 0.003;
+    // The bbox coordinates from Roboflow are relative to the image size and are centered
+    // Wait, usually roboflow bounding boxes are {x, y, width, height} where x,y is the center, or top-left.
+    // Assuming x, y is the center (typical YOLO format):
+    const boxWidth = bbox.width;
+    const boxHeight = bbox.height;
+    // mirror the X coordinate since the video is horizontally flipped in CSS
+    const boxX = W - bbox.x - (boxWidth / 2);
+    const boxY = bbox.y - (boxHeight / 2);
+
+    ctx.lineWidth = 4;
     ctx.strokeStyle = lineColor;
-    ctx.shadowColor = lineColor;
-    ctx.shadowBlur = 8;
-    for (const [a, b] of HAND_CONNECTIONS) {
-      ctx.beginPath();
-      ctx.moveTo(toX(landmarks[a]), toY(landmarks[a]));
-      ctx.lineTo(toX(landmarks[b]), toY(landmarks[b]));
-      ctx.stroke();
-    }
+    ctx.strokeRect(boxX, boxY, boxWidth, boxHeight);
 
-    /* All landmark dots */
-    ctx.shadowBlur = 0;
-    for (let i = 0; i < landmarks.length; i++) {
-      const isTip = FINGER_TIPS.includes(i);
-      ctx.beginPath();
-      ctx.arc(toX(landmarks[i]), toY(landmarks[i]), W * (isTip ? 0.007 : 0.004), 0, Math.PI * 2);
-      ctx.fillStyle = isTip ? lineColor : "rgba(255,255,255,0.7)";
-      ctx.fill();
-    }
-
-    /* Wrist dot (landmark 0) */
-    ctx.beginPath();
-    ctx.arc(toX(landmarks[0]), toY(landmarks[0]), W * 0.006, 0, Math.PI * 2);
-    ctx.fillStyle = lineColor;
-    ctx.fill();
-  }, [landmarks, isCorrect, videoRef]);
+  }, [landmarks, isCorrect, videoRef, bbox]);
 
   return (
     <div className="relative w-full overflow-hidden bg-[#0B0B0F]" style={{ aspectRatio: "16/9" }}>
