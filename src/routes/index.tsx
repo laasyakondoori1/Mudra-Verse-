@@ -139,32 +139,47 @@ function ArchiveTeaser() {
           ))}
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-px bg-background/10 sm:grid-cols-2 lg:grid-cols-4">
-          {mudras.map((m, i) => (
-            <Link
-              to="/library"
-              key={m.id}
-              className="group flex flex-col bg-foreground p-6 transition-colors hover:bg-background/5"
-            >
-              <p className="label text-[color:var(--gold)]">
-                {String(i + 1).padStart(2, "0")} · {m.category}
-              </p>
-              <div className="my-6 aspect-square w-full overflow-hidden bg-background/5">
-                <img
-                  src={m.image}
-                  alt={`${m.name} mudra`}
-                  width={400}
-                  height={400}
-                  loading="lazy"
-                  className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
-                />
+        <div className="mt-16 space-y-20">
+          {(["Sthana", "Adavu", "Asamyuta", "Samyuta"] as const).map((category) => {
+            const categoryMudras = mudras.filter((m) => m.category === category);
+            if (categoryMudras.length === 0) return null;
+
+            return (
+              <div key={category} className="flex flex-col">
+                <div className="mb-6 flex items-end justify-between border-b border-background/10 pb-4">
+                  <h3 className="font-serif text-3xl font-medium tracking-wide">{category}</h3>
+                  <span className="label text-background/40">{categoryMudras.length} Gestures</span>
+                </div>
+                <div className="grid grid-cols-1 gap-px bg-background/10 sm:grid-cols-2 lg:grid-cols-4">
+                  {categoryMudras.slice(0, 4).map((m, i) => (
+                    <Link
+                      to="/library"
+                      key={m.id}
+                      className="group flex flex-col bg-foreground p-6 transition-colors hover:bg-background/5"
+                    >
+                      <p className="label text-[color:var(--gold)]">
+                        {String(i + 1).padStart(2, "0")} · {m.category}
+                      </p>
+                      <div className="my-6 aspect-square w-full overflow-hidden bg-background/5">
+                        <img
+                          src={m.image}
+                          alt={`${m.name} mudra`}
+                          width={400}
+                          height={400}
+                          loading="lazy"
+                          className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
+                        />
+                      </div>
+                      <h4 className="font-serif text-2xl">{m.name}</h4>
+                      <p className="mt-2 text-xs leading-relaxed text-background/50">
+                        {m.translation}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
               </div>
-              <h3 className="font-serif text-2xl">{m.name}</h3>
-              <p className="mt-2 text-xs leading-relaxed text-background/50">
-                {m.translation}
-              </p>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
