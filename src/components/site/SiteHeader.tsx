@@ -5,6 +5,7 @@ const nav = [
   { to: "/practice", label: "Practice" },
   { to: "/heritage", label: "Heritage" },
   { to: "/philosophy", label: "Philosophy" },
+  { to: "/academics", label: "Academics" },
 ] as const;
 
 export function SiteHeader() {
