@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteShell";
 import { mudras, danceForms } from "@/lib/mudras";
-import heroMudra from "@/assets/hero-mudra.jpg";
+import heroMudra from "@/assets/nataraja-hero.png";
 import practiceFeed from "@/assets/practice-feed.jpg";
 import guruPortrait from "@/assets/guru-portrait.jpg";
 
@@ -75,14 +75,14 @@ function Hero() {
           <figure className="relative">
             <img
               src={heroMudra}
-              alt="A dancer's hand performing the Pataka mudra in warm dramatic light."
+              alt="Nataraja statue with a dancer in the foreground"
               width={1024}
               height={1280}
               className="aspect-[4/5] w-full object-cover ring-1 ring-black/5"
             />
             <figcaption className="label mt-3 flex items-center justify-between text-foreground/50">
-              <span>Plate i · Pataka</span>
-              <span>Bharatanatyam · Tanjavur lineage</span>
+              <span>Plate i · Cosmic Dancer</span>
+              <span>Nataraja</span>
             </figcaption>
           </figure>
         </div>
