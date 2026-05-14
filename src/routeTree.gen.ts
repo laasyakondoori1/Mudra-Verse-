@@ -13,6 +13,7 @@ import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as HeritageRouteImport } from './routes/heritage'
+import { Route as AcademicsRouteImport } from './routes/academics'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PracticeRoute = PracticeRouteImport.update({
@@ -35,6 +36,11 @@ const HeritageRoute = HeritageRouteImport.update({
   path: '/heritage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademicsRoute = AcademicsRouteImport.update({
+  id: '/academics',
+  path: '/academics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/academics': typeof AcademicsRoute
   '/heritage': typeof HeritageRoute
   '/library': typeof LibraryRoute
   '/philosophy': typeof PhilosophyRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/academics': typeof AcademicsRoute
   '/heritage': typeof HeritageRoute
   '/library': typeof LibraryRoute
   '/philosophy': typeof PhilosophyRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/academics': typeof AcademicsRoute
   '/heritage': typeof HeritageRoute
   '/library': typeof LibraryRoute
   '/philosophy': typeof PhilosophyRoute
@@ -65,14 +74,34 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/heritage' | '/library' | '/philosophy' | '/practice'
+  fullPaths:
+    | '/'
+    | '/academics'
+    | '/heritage'
+    | '/library'
+    | '/philosophy'
+    | '/practice'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/heritage' | '/library' | '/philosophy' | '/practice'
-  id: '__root__' | '/' | '/heritage' | '/library' | '/philosophy' | '/practice'
+  to:
+    | '/'
+    | '/academics'
+    | '/heritage'
+    | '/library'
+    | '/philosophy'
+    | '/practice'
+  id:
+    | '__root__'
+    | '/'
+    | '/academics'
+    | '/heritage'
+    | '/library'
+    | '/philosophy'
+    | '/practice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcademicsRoute: typeof AcademicsRoute
   HeritageRoute: typeof HeritageRoute
   LibraryRoute: typeof LibraryRoute
   PhilosophyRoute: typeof PhilosophyRoute
@@ -109,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HeritageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academics': {
+      id: '/academics'
+      path: '/academics'
+      fullPath: '/academics'
+      preLoaderRoute: typeof AcademicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcademicsRoute: AcademicsRoute,
   HeritageRoute: HeritageRoute,
   LibraryRoute: LibraryRoute,
   PhilosophyRoute: PhilosophyRoute,
