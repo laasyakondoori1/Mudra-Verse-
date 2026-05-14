@@ -92,7 +92,7 @@ function Hero() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-8 py-10 sm:grid-cols-4">
           {[
             ["108", "Documented mudras"],
-            ["8", "Classical forms"],
+            ["1", "Primary form (Kuchipudi)"],
             ["32", "Partnering institutions"],
             ["—", "Independent foundation"],
           ].map(([n, l]) => (
@@ -128,14 +128,22 @@ function ArchiveTeaser() {
 
         <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
           {danceForms.map((f, i) => (
-            <span
-              key={f}
-              className={`label transition-colors ${
-                i === 0 ? "text-[color:var(--gold)]" : "text-background/40 hover:text-background/80"
-              }`}
-            >
-              {f}
-            </span>
+            f === "Other Forms" ? (
+              <Link
+                key={f}
+                to="/other-forms"
+                className="label text-background/40 hover:text-background/80 transition-colors"
+              >
+                {f} →
+              </Link>
+            ) : (
+              <span
+                key={f}
+                className="label transition-colors text-[color:var(--gold)]"
+              >
+                {f}
+              </span>
+            )
           ))}
         </div>
 
@@ -440,7 +448,7 @@ function Voices() {
     {
       q: "I have been teaching for thirty-eight years. This is the first piece of software that listens before it speaks.",
       who: "Smt. Rukmini Iyer",
-      role: "Senior guru, Bharatanatyam · Mylapore",
+      role: "Senior guru, Kuchipudi · Mylapore",
     },
     {
       q: "The corrections are small and exact. It feels like sitting in front of a careful teacher, not a game.",

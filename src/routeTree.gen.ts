@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
+import { Route as OtherFormsRouteImport } from './routes/other-forms'
 import { Route as LibraryRouteImport } from './routes/library'
 import { Route as HeritageRouteImport } from './routes/heritage'
 import { Route as AcademicsRouteImport } from './routes/academics'
@@ -24,6 +25,11 @@ const PracticeRoute = PracticeRouteImport.update({
 const PhilosophyRoute = PhilosophyRouteImport.update({
   id: '/philosophy',
   path: '/philosophy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OtherFormsRoute = OtherFormsRouteImport.update({
+  id: '/other-forms',
+  path: '/other-forms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LibraryRoute = LibraryRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/academics': typeof AcademicsRoute
   '/heritage': typeof HeritageRoute
   '/library': typeof LibraryRoute
+  '/other-forms': typeof OtherFormsRoute
   '/philosophy': typeof PhilosophyRoute
   '/practice': typeof PracticeRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/academics': typeof AcademicsRoute
   '/heritage': typeof HeritageRoute
   '/library': typeof LibraryRoute
+  '/other-forms': typeof OtherFormsRoute
   '/philosophy': typeof PhilosophyRoute
   '/practice': typeof PracticeRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/academics': typeof AcademicsRoute
   '/heritage': typeof HeritageRoute
   '/library': typeof LibraryRoute
+  '/other-forms': typeof OtherFormsRoute
   '/philosophy': typeof PhilosophyRoute
   '/practice': typeof PracticeRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/academics'
     | '/heritage'
     | '/library'
+    | '/other-forms'
     | '/philosophy'
     | '/practice'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/academics'
     | '/heritage'
     | '/library'
+    | '/other-forms'
     | '/philosophy'
     | '/practice'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/academics'
     | '/heritage'
     | '/library'
+    | '/other-forms'
     | '/philosophy'
     | '/practice'
   fileRoutesById: FileRoutesById
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   AcademicsRoute: typeof AcademicsRoute
   HeritageRoute: typeof HeritageRoute
   LibraryRoute: typeof LibraryRoute
+  OtherFormsRoute: typeof OtherFormsRoute
   PhilosophyRoute: typeof PhilosophyRoute
   PracticeRoute: typeof PracticeRoute
 }
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/philosophy'
       fullPath: '/philosophy'
       preLoaderRoute: typeof PhilosophyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/other-forms': {
+      id: '/other-forms'
+      path: '/other-forms'
+      fullPath: '/other-forms'
+      preLoaderRoute: typeof OtherFormsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/library': {
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   AcademicsRoute: AcademicsRoute,
   HeritageRoute: HeritageRoute,
   LibraryRoute: LibraryRoute,
+  OtherFormsRoute: OtherFormsRoute,
   PhilosophyRoute: PhilosophyRoute,
   PracticeRoute: PracticeRoute,
 }
