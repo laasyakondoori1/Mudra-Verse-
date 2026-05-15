@@ -1,0 +1,43 @@
+names:
+- Alapadma
+- Arala
+- Ardhachandra
+- Ardhapataka
+- Bhramara
+- Chandrakala
+- Chatura
+- Hamsapaksha
+- Hamsasya
+- Kangula
+- Kapittha
+- Kartarimukha
+- Katakamukha
+- Mayura
+- Mrigashirsha
+- Mukula
+- Mushti
+- Padmakosha
+- Pataka
+- Samdamsha
+- Sarpashirsha
+- Shikhara
+- Shukatunda
+- Simhamukha
+- Suchi
+- Tamrachuda
+- Tripataka
+- Trishula
+- bangle
+- hand
+- lady
+- text
+nc: 32
+roboflow:
+  license: CC BY 4.0
+  project: kuchipudi-mudras
+  url: https://universe.roboflow.com/soudamini-9akmp/kuchipudi-mudras/dataset/4
+  version: 4
+  workspace: soudamini-9akmp
+test: ../test/images
+train: ../train/images
+val: ../valid/images
